@@ -1,0 +1,8 @@
+[workspace]
+members = ["crates/host", "crates/plugin"]
+resolver = "2"
+
+# This will create smaller WASM files
+[profile.release]
+strip = "debuginfo"
+lto = true
