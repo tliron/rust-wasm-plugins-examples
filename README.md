@@ -47,19 +47,21 @@ things work with RPC protocols (e.g. protobufs).
 WAI had not been widely adopted, however it does work and is also quite straightforward. We won't be
 using it in this example, but it's useful to be aware of its existence.
 
-The Promising Solution
+Also check out [Extism](https://extism.org/), a more comprehensive attempt to fill in the gap.
+
+The Concensus Solution
 ----------------------
 
 But the consensus now seems to be around the
-[Wasm Component Model](https://component-model.bytecodealliance.org/), which expands on WAI with
-proper namespacing, resources, and richer custom data types. The Component Model is actually part of
-WASI, and indeed is being used to provide the WASI extensions. So, what's [WASI](https://wasi.dev/)?
-It's an initiative by the community to deliver a set of common APIs on top of Wasm for accessing
-streams, like files and stdout/stderr, network sockets, and eventually threads. I say "eventually"
-because WASI is still very much a work in progress. As of now (early 2025) we just got "preview 2"
-of it. Luckily, Rust can target "wasip2", meaning that it can be used to create the latest and
-greatest Components. Though, note that wasip2 does produce larger minimal `.wasm` files than WAI due
-to the inclusion of the machinery for the Component Model.
+[Wasm Component Model](https://component-model.bytecodealliance.org/), which expands on the WAI
+proposal with proper namespacing, resources, and richer custom data types. The Component Model is
+actually part of WASI, and indeed is being used to provide the WASI extensions. So, what's
+[WASI](https://wasi.dev/)? It's an initiative by the community to deliver a set of common APIs on top
+of Wasm for accessing streams, like files and stdout/stderr, network sockets, and eventually threads.
+I say "eventually" because WASI is still very much a work in progress. As of now (early 2025) we just
+got "preview 2" of it. Luckily, Rust can target "wasip2", meaning that it can be used to create the
+latest and greatest Components. Though, note that wasip2 does produce larger minimal `.wasm` files
+than WAI due to the inclusion of the machinery for the Component Model.
 
 Like WAI, the Component Model relies on an interface definition file,
 [`.wit`](https://github.com/WebAssembly/component-model/blob/main/design/mvp/WIT.md).
@@ -93,6 +95,12 @@ cd rust-wasm-plugins-examples
 cargo build --package=plugin --target=wasm32-wasip2 --release
 cargo run --package=host
 ```
+
+Things to See
+-------------
+
+* [Rust to WebAssembly the hard way](https://surma.dev/things/rust-to-webassembly/) by Surma
+* [Plugins with Rust and WASI Preview 2](https://benw.is/posts/plugins-with-rust-and-wasi) by Ben Wishovich
 
 License
 -------
