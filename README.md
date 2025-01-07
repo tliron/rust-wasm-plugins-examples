@@ -24,15 +24,15 @@ primitive numeric types, namely integers and floats (and not even unsigned integ
 and understandable design choice to keep Wasm lean and mean and agnostic to any specific implementation.
 
 But this means that if you want to transfer something as basic as a string or a vector then you'll
-have the delve deep into the the Wasm memory model. People have come up with various solutions for Rust,
+have to delve deep into the the Wasm memory model. People have come up with various solutions for Rust,
 from piggy-backing on [std::ffi::CString](https://doc.rust-lang.org/std/ffi/struct.CString.html) to
 exposing custom malloc/free functions to the Wasm module. But not only are these solutions painful,
 they would obviously need to be ported to every language we want to support, each with its own string
 and array models. There was, and still is, a need for some kind of standard, built on top of Wasm, that
 would support higher-level constructs in a portable way.
 
-The Temporary Solution
-----------------------
+The Temporary Solutions
+-----------------------
 
 It took some time for the community to rally around one. For a while, a promising proposal was
 Wasm Interfaces (WAI). This was [pioneered by Wasmer](https://github.com/wasmerio/wai), where the
@@ -49,7 +49,7 @@ using it in this example, but it's useful to be aware of its existence.
 
 Also check out [Extism](https://extism.org/), a more comprehensive attempt to fill in the gap.
 
-The Concensus Solution
+The Consensus Solution
 ----------------------
 
 But the consensus now seems to be around the
