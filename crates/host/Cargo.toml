@@ -2,7 +2,7 @@
 edition = "2021"
 
 name = "host"
-description = "Rust WASM Plugins Example"
+description = "Rust Wasm Plugins Example"
 version = "0.0.1"
 rust-version = "1.83"
 

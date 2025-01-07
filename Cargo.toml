@@ -2,7 +2,7 @@
 members = ["crates/host", "crates/plugin"]
 resolver = "2"
 
-# This will create smaller WASM files
+# This will create smaller Wasm files
 [profile.release]
 strip = "debuginfo"
 lto = true
