@@ -7,8 +7,6 @@ use super::bindings::{acme::plugins::host, export, exports::acme::plugins::prett
 
 // Gorgeous!
 
-// Note: String here is not "std::string:String", but "alloc::String"!
-
 pub struct QuotePrettifyPlugin;
 
 export!(QuotePrettifyPlugin);
