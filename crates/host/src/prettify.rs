@@ -16,8 +16,9 @@ pub struct Prettify {
     prettify: bindings::Prettify,
 }
 
-// Unfortunately, Wasmtime uses Anyhow for most of its errors
-// But you could potentially wrap it in your own "PluginError" or similar
+// Wasmtime uses Anyhow for most of its errors
+// But you could potentially wrap it in your own "PluginError" or similar using .map_err
+// For this example we used .context
 
 impl Prettify {
     /// Constructor.
@@ -45,7 +46,7 @@ impl Prettify {
         Ok(Self { store, prettify })
     }
 
-    // We'll create some convenience functions to be more ergonomic:
+    // We'll create convenience wrappers to make calling functions ergonomic:
 
     /// Prettify.
     pub fn prettify(&mut self, name: &str) -> Result<String, anyhow::Error> {

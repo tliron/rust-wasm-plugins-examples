@@ -64,7 +64,7 @@ latest and greatest Components. Though, note that wasip2 does produce larger min
 than WAI due to the inclusion of the machinery for the Component Model.
 
 Like WAI, the Component Model relies on an interface definition file,
-[`.wit`](https://github.com/WebAssembly/component-model/blob/main/design/mvp/WIT.md).
+[`.wit`](https://component-model.bytecodealliance.org/design/wit.html).
 And [Wasmtime](https://wasmtime.dev/) has the tooling for it! Yay! So, are we finally off to the
 races with our plugin system?
 
