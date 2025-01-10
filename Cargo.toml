@@ -1,6 +1,6 @@
 [workspace]
 members = ["crates/host", "crates/plugin"]
-resolver = "2"
+resolver = "3"
 
 # This will create smaller Wasm files
 [profile.release]
