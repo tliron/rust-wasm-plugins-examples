@@ -13,11 +13,11 @@ authors = ["Tal Liron"]
 
 readme = "../README.md"
 
-categories = ["wasm"] # https://crates.io/category_slugs
+categories = ["wasm"]                                      # https://crates.io/category_slugs
 keywords = ["wasm", "wasi", "wit", "wasmtime", "examples"]
 
 [dependencies]
-wit-bindgen = "0.36.0"
+wit-bindgen = "0.41.0"
 
 [lib]
 crate-type = ["cdylib"]

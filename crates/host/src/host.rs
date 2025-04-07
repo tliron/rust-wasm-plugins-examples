@@ -1,6 +1,6 @@
 use super::bindings::acme::plugins::host;
 
-use wasmtime_wasi::{ResourceTable, WasiCtx, WasiCtxBuilder, WasiView};
+use wasmtime_wasi::{IoView, ResourceTable, WasiCtx, WasiCtxBuilder, WasiView};
 
 //
 // Host
@@ -25,7 +25,9 @@ impl WasiView for Host {
     fn ctx(&mut self) -> &mut WasiCtx {
         &mut self.wasi
     }
+}
 
+impl IoView for Host {
     fn table(&mut self) -> &mut ResourceTable {
         &mut self.resources
     }
