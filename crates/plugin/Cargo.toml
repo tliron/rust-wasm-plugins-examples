@@ -13,7 +13,7 @@ authors = ["Tal Liron"]
 
 readme = "../README.md"
 
-categories = ["wasm"]                                      # https://crates.io/category_slugs
+categories = ["wasm"]
 keywords = ["wasm", "wasi", "wit", "wasmtime", "examples"]
 
 [dependencies]
