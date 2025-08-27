@@ -4,7 +4,7 @@ edition = "2021"
 name = "plugin"
 description = "Rust Wasm Plugins Example"
 version = "0.0.1"
-rust-version = "1.84"
+rust-version = "1.89"
 
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/tliron/rust-wasm-plugins-example"
@@ -17,7 +17,7 @@ categories = ["wasm"]
 keywords = ["wasm", "wasi", "wit", "wasmtime", "examples"]
 
 [dependencies]
-wit-bindgen = "0.41.0"
+wit-bindgen = "0.44.0"
 
 [lib]
 crate-type = ["cdylib"]

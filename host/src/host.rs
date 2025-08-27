@@ -1,6 +1,6 @@
 use super::bindings::acme::plugins::host;
 
-use wasmtime_wasi::{IoView, ResourceTable, WasiCtx, WasiCtxBuilder, WasiView};
+use wasmtime_wasi::*;
 
 //
 // Host
@@ -22,14 +22,8 @@ impl Host {
 
 // We need to implement WasiView for wasmtime_wasi::add_to_linker_sync
 impl WasiView for Host {
-    fn ctx(&mut self) -> &mut WasiCtx {
-        &mut self.wasi
-    }
-}
-
-impl IoView for Host {
-    fn table(&mut self) -> &mut ResourceTable {
-        &mut self.resources
+    fn ctx(&mut self) -> WasiCtxView<'_> {
+        WasiCtxView { ctx: &mut self.wasi, table: &mut self.resources }
     }
 }
 

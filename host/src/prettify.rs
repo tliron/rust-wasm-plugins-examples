@@ -1,9 +1,12 @@
 use super::{bindings, host::*};
 
 use {
-    anyhow::Context,
-    std::path,
-    wasmtime::{component::*, Engine, Store},
+    anyhow::*,
+    std::path::*,
+    wasmtime::{
+        component::{Component, Linker, *},
+        *,
+    },
 };
 
 //
@@ -22,9 +25,9 @@ pub struct Prettify {
 
 impl Prettify {
     /// Constructor.
-    pub fn new<PathT>(module: PathT) -> Result<Self, anyhow::Error>
+    pub fn new<PathT>(module: PathT) -> Result<Self, Error>
     where
-        PathT: AsRef<path::Path>,
+        PathT: AsRef<Path>,
     {
         let engine = Engine::default();
 
@@ -33,8 +36,9 @@ impl Prettify {
 
         // Linker
         let mut linker = Linker::new(&engine);
-        wasmtime_wasi::add_to_linker_sync(&mut linker).context("link WASI")?;
-        bindings::Prettify::add_to_linker(&mut linker, |state: &mut Host| state).context("link plugin host")?;
+        wasmtime_wasi::p2::add_to_linker_sync(&mut linker).context("link WASI")?;
+        bindings::Prettify::add_to_linker::<_, HasSelf<_>>(&mut linker, |state: &mut Host| state)
+            .context("link plugin host")?;
 
         // Store
         let mut store = Store::new(&engine, Host::new());
@@ -49,7 +53,7 @@ impl Prettify {
     // We'll create convenience wrappers to make calling functions ergonomic:
 
     /// Prettify.
-    pub fn prettify(&mut self, name: &str) -> Result<String, anyhow::Error> {
+    pub fn prettify(&mut self, name: &str) -> Result<String, Error> {
         self.prettify.acme_plugins_prettify_plugin().call_prettify(&mut self.store, name)
     }
 }
