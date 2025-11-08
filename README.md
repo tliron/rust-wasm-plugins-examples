@@ -1,5 +1,5 @@
-Rust Wasm Plugins Example
-=========================
+Rust Wasm Plugins Examples
+==========================
 
 A Great Fit
 -----------
@@ -52,6 +52,8 @@ git clone https://github.com/tliron/rust-wasm-plugins-examples.git
 cd rust-wasm-plugins-examples
 ./run.sh
 ```
+
+Warning! I discovered [this bug](https://github.com/rust-lang/rust/issues/148715). When building release builds of your Wasm file you might want to set `CARGO_PROFILE_RELEASE_OPT_LEVEL=1` in the environment, or use `+nightly` instead.
 
 Things to See
 -------------

@@ -4,11 +4,11 @@ edition = "2021"
 name = "plugin"
 description = "Rust Wasm Plugins Example"
 version = "0.0.1"
-rust-version = "1.90"
+rust-version = "1.91"
 
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/tliron/rust-wasm-plugins-example"
-documentation = "https://github.com/tliron/rust-wasm-plugins-example"
+repository = "https://github.com/tliron/rust-wasm-plugins-examples"
+documentation = "https://github.com/tliron/rust-wasm-plugins-examples"
 authors = ["Tal Liron"]
 
 readme = "../README.md"
