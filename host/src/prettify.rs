@@ -3,10 +3,7 @@ use super::{bindings, host::*};
 use {
     anyhow::*,
     std::path::*,
-    wasmtime::{
-        component::{Component, Linker, *},
-        *,
-    },
+    wasmtime::component::{Component, HasSelf, Linker},
 };
 
 //
@@ -15,7 +12,7 @@ use {
 
 /// Prettify plugin.
 pub struct Prettify {
-    store: Store<Host>,
+    store: wasmtime::Store<Host>,
     prettify: bindings::Prettify,
 }
 
@@ -25,11 +22,11 @@ pub struct Prettify {
 
 impl Prettify {
     /// Constructor.
-    pub fn new<PathT>(module: PathT) -> Result<Self, Error>
+    pub fn new<PathT>(module: PathT) -> wasmtime::Result<Self>
     where
         PathT: AsRef<Path>,
     {
-        let engine = Engine::default();
+        let engine = wasmtime::Engine::default();
 
         // Component
         let component = Component::from_file(&engine, module).context("load component")?;
@@ -41,7 +38,7 @@ impl Prettify {
             .context("link plugin host")?;
 
         // Store
-        let mut store = Store::new(&engine, Host::new());
+        let mut store = wasmtime::Store::new(&engine, Host::new());
 
         // Bindings
         let prettify =
@@ -50,10 +47,29 @@ impl Prettify {
         Ok(Self { store, prettify })
     }
 
-    // We'll create convenience wrappers to make calling functions ergonomic:
+    // Here we'll put convenience wrappers to make calling functions ergonomic:
+    // Note: the wasmtime::Result is because we added "imports: { default: trappable }" in bindgen
 
     /// Prettify.
-    pub fn prettify(&mut self, name: &str) -> Result<String, Error> {
-        self.prettify.acme_plugins_prettify_plugin().call_prettify(&mut self.store, name)
+    pub fn prettify(&mut self, content: &str) -> wasmtime::Result<Result<String, String>> {
+        self.prettify.acme_plugins_prettify_plugin().call_prettify(&mut self.store, content).context("call prettify")
+    }
+
+    /// Prettify words.
+    pub fn prettify_words(&mut self, words: Vec<&str>) -> wasmtime::Result<Result<String, String>> {
+        let words: Vec<String> = words.iter().map(|word| word.to_string()).collect();
+
+        // Construct a guest's list resource
+        let list_resource = self
+            .prettify
+            .acme_plugins_prettify_plugin()
+            .list_resource()
+            .call_constructor(&mut self.store, &words)
+            .context("call list-resource constructor")?;
+
+        self.prettify
+            .acme_plugins_prettify_plugin()
+            .call_prettify_words(&mut self.store, list_resource)
+            .context("call prettify-words")
     }
 }

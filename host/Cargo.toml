@@ -17,6 +17,6 @@ categories = ["wasm"]                                      # https://crates.io/c
 keywords = ["wasm", "wasi", "wit", "wasmtime", "examples"]
 
 [dependencies]
-anyhow = "1.0.99"
-wasmtime = "36.0.2"
-wasmtime-wasi = "36.0.2"
+anyhow = "1.0.100"
+wasmtime = "38.0.3"
+wasmtime-wasi = "38.0.3"

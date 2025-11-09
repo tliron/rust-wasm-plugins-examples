@@ -2,9 +2,6 @@
 // (In Rust the dashes are converted to underscores, as usual)
 // They also can't use numeric digits for some reason!
 
-// A package can include more than one "world"
-// (=component, or plugin type for us),
-
 package acme:plugins@1.0.0;
 
 // This is what the host will expose to our plugins
@@ -14,7 +11,15 @@ interface host {
 
 // This is what our plugins will expose to the host
 interface prettify-plugin {
-    prettify: func(content: string) -> string;
+    prettify: func(content: string) -> result<string, string>;
+
+    prettify-words: func(content: list-resource) -> result<string, string>;
+
+    resource list-resource {
+        constructor(items: list<string>);
+        get: func() -> list<string>;
+        length: func() -> u64;
+    }
 }
 
 // We can create additional worlds per plugin type

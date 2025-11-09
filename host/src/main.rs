@@ -5,7 +5,14 @@ mod prettify;
 use prettify::*;
 
 pub fn main() {
-    let mut prettify = Prettify::new("target/wasm32-wasip2/release/plugin.wasm").unwrap();
-    let r = prettify.prettify("We will prettify this with a plugin").unwrap();
-    println!("{}", r);
+    let mut prettify = Prettify::new("target/wasm32-wasip2/release/plugin.wasm").expect("initialize wasmtime");
+
+    let pretty = prettify.prettify("We will prettify this with a plugin").expect("call Wasm").expect("prettify");
+    println!("{}", pretty);
+
+    let pretty = prettify
+        .prettify_words(vec!["We", "will", "also", "prettify", "this", "with", "a", "plugin"])
+        .expect("call Wasm")
+        .expect("prettify-words");
+    println!("{}", pretty);
 }

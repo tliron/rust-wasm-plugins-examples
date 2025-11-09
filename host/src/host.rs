@@ -29,7 +29,9 @@ impl WasiView for Host {
 
 // Our exposed Host functions
 impl host::Host for Host {
-    fn log(&mut self, message: String) {
+    // Note: the wasmtime::Result is because we added "imports: { default: trappable }" in bindgen
+    fn log(&mut self, message: String) -> wasmtime::Result<()> {
         println!("log: {}", message);
+        Ok(())
     }
 }
