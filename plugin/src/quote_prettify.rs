@@ -1,4 +1,7 @@
-use super::bindings::{acme::plugins::host, export, exports::acme::plugins::prettify_plugin};
+use super::{
+    bindings::{export, exports::acme::plugins::prettify_plugin},
+    host,
+};
 
 // This is our implementation of the "prettify" plugin type (the WIT world)
 //
@@ -6,59 +9,61 @@ use super::bindings::{acme::plugins::host, export, exports::acme::plugins::prett
 //
 // Gorgeous!!!!
 
+//
+// QuotePrettifyPlugin
+//
+
 pub struct QuotePrettifyPlugin;
 
 export!(QuotePrettifyPlugin);
 
 impl prettify_plugin::Guest for QuotePrettifyPlugin {
-    // We must provide implementations for resources
-    type ListResource = List;
+    // We must provide implementations for resources (see below)
+    type PersonResource = Person;
 
-    fn prettify(content: String) -> Result<String, String> {
+    fn prettify(words: Vec<String>) -> Result<String, String> {
         host::log("thank you for calling prettify!");
 
-        if content.is_empty() {
-            return Err("content is empty".into());
+        if words.is_empty() {
+            return Err("I have no words to express my disappointment".into());
         }
 
-        let words = content.split(" ");
-        let words: Vec<String> = words.map(|word| format!("{:?}", word)).collect();
+        let quoted_words: Vec<String> = words.into_iter().map(|word| format!("{:?}", word)).collect();
 
-        Ok(words.join(" "))
+        Ok(quoted_words.join(" "))
     }
 
-    fn prettify_words(words: prettify_plugin::ListResource) -> Result<String, String> {
-        host::log("thank you for calling prettify-words!");
+    fn greet(person: prettify_plugin::PersonResource) -> Result<String, String> {
+        host::log_structured("thank you for calling greet!", &[("plugin", "prettify"), ("implementation", "quote")]);
 
         // Convert to our implementation type
-        let content: List = words.into_inner();
+        let person: Person = person.into_inner();
 
-        if content.inner.is_empty() {
-            return Err("content is empty".into());
+        if person.first_name.is_empty() || person.last_name.is_empty() {
+            return Err("person is incomplete".into());
         }
 
-        let words = &content.inner;
-        let words: Vec<String> = words.iter().map(|word| format!("{:?}", word)).collect();
+        let greeting = format!("Hello, {:?} {:?}!", person.first_name, person.last_name);
 
-        Ok(words.join(" "))
+        Ok(greeting)
     }
 }
 
-#[derive(Clone)]
-pub struct List {
-    inner: Vec<String>,
+//
+// Person
+//
+
+pub struct Person {
+    first_name: String,
+    last_name: String,
 }
 
-impl prettify_plugin::GuestListResource for List {
-    fn new(list: Vec<String>) -> Self {
-        Self { inner: list }
+impl prettify_plugin::GuestPersonResource for Person {
+    fn new(first_name: String, last_name: String) -> Self {
+        Self { first_name, last_name }
     }
 
-    fn get(&self) -> Vec<String> {
-        self.clone().inner
-    }
-
-    fn length(&self) -> u64 {
-        self.inner.len() as u64
+    fn inner(&self) -> (String, String) {
+        (self.first_name.clone(), self.last_name.clone())
     }
 }

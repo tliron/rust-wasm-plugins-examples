@@ -5,26 +5,43 @@
 package acme:plugins@1.0.0;
 
 // This is what the host will expose to our plugins
+
 interface host {
     log: func(message: string);
+
+    log-structured: func(message: string, properties: map-resource);
+
+    // WIT doesn't have a map type, but we can implement it as a resource
+    // Note the "inner()" function --
+    // It is my personal practice to provide such a function (when it makes sense)
+    // that can get all the resource's internal data atomically (at once) in a single call
+
+    resource map-resource {
+        constructor(key-value-pairs: list<tuple<string, string>>);
+        inner: func() -> list<tuple<string, string>>;
+        length: func() -> u64;
+    }
 }
 
 // This is what our plugins will expose to the host
+
 interface prettify-plugin {
-    prettify: func(content: string) -> result<string, string>;
+    prettify: func(words: list<string>) -> result<string, string>;
 
-    prettify-words: func(content: list-resource) -> result<string, string>;
+    greet: func(person: person-resource) -> result<string, string>;
 
-    resource list-resource {
-        constructor(items: list<string>);
-        get: func() -> list<string>;
-        length: func() -> u64;
+    // This resource isn't very interesting; it's just an example
+
+    resource person-resource {
+        constructor(first-name: string, last-name: string);
+        inner: func() -> tuple<string, string>;
     }
 }
 
 // We can create additional worlds per plugin type
 // You can import/export more than one interface
 // (as well as individual functions, types, and resources)
+
 world prettify {
     import host;
     export prettify-plugin;

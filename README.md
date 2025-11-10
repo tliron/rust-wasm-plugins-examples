@@ -9,7 +9,7 @@ You've probably heard that [Wasm](https://web.dev/explore/webassembly) (WebAssem
 Not So Easy
 -----------
 
-Unfortunately, you're going to find out (in early 2025, when this is written) that examples of this often-mentioned use case are hard to come by, and that so much of the documentation is irrelevant, confusing, incomplete, or just out of date, as things have been moving quite quickly in the Wasm world.
+Unfortunately, you're going to find out (in late 2025, when this is written) that examples of this often-mentioned use case are hard to come by, and that so much of the documentation is irrelevant, confusing, incomplete, or just out of date, as things have been moving quite quickly in the Wasm world.
 
 If you've read Surma's [Rust to WebAssembly the hard way](https://surma.dev/things/rust-to-webassembly/) (highly recommended starting point!) then you might feel quite confident in your ability to build `.wasm` modules, load them into Rust, call functions in them, and expose functions to them. But the hard way becomes a dead end as you realize something quite critical: Wasm only supports the transfer of just primitive numeric types, namely integers and floats (and not even unsigned integers). This is an intentional and understandable design choice to keep Wasm lean and mean and agnostic to any specific implementation.
 
@@ -30,7 +30,7 @@ Also check out [Extism](https://extism.org/), a more comprehensive attempt to fi
 The Consensus Solution
 ----------------------
 
-But the consensus now seems to be around the [Wasm Component Model](https://component-model.bytecodealliance.org/), which expands on the WAI proposal with proper namespacing, resources, and richer custom data types. The Component Model is actually part of WASI, and indeed is being used to provide the WASI extensions. So, what's [WASI](https://wasi.dev/)? It's an initiative by the community to deliver a set of common APIs on top of Wasm for accessing streams, like files and stdout/stderr, network sockets, and eventually threads. I say "eventually" because WASI is still very much a work in progress. As of now (early 2025) we just got "preview 2" of it. Luckily, Rust can target "wasip2", meaning that it can be used to create the latest and greatest Components. Though, note that wasip2 does produce larger minimal `.wasm` files than WAI due to the inclusion of the machinery for the Component Model.
+But the consensus now seems to be around the [Wasm Component Model](https://component-model.bytecodealliance.org/), which expands on the WAI proposal with proper namespacing, resources, and richer custom data types. The Component Model is actually part of WASI, and indeed is being used to provide the WASI extensions. So, what's [WASI](https://wasi.dev/)? It's an initiative by the community to deliver a set of common APIs on top of Wasm for accessing streams, like files and stdout/stderr, network sockets, and eventually threads. I say "eventually" because WASI is still very much a work in progress. As of now (late 2025) we just got "preview 2" of it. Luckily, Rust can target "wasip2", meaning that it can be used to create the latest and greatest Components. Though, note that wasip2 does produce larger minimal `.wasm` files than WAI due to the inclusion of the machinery for the Component Model.
 
 Like WAI, the Component Model relies on an interface definition file, [`.wit`](https://component-model.bytecodealliance.org/design/wit.html). And [Wasmtime](https://wasmtime.dev/) has the tooling for it! Yay! So, are we finally off to the races with our plugin system?
 
@@ -39,7 +39,7 @@ Not so fast. Again, finding examples and straightforward documentation is not ea
 Finally We Get to the Point
 ---------------------------
 
-All that to say, that's why I created this repository. It's intended to be a minimal and straightforward example of how to build plugins in Rust (as Components) and how to host them in your application using Wasmtime and its WIT tooling. Well, at least for early 2025... As of now it does not demonstrate the more advanced features of WIT, such as custom data types, but I might add those in the future.
+All that to say, that's why I created this repository. It's intended to be a minimal and straightforward example of how to build plugins in Rust (as Components) and how to host them in your application using Wasmtime and its WIT tooling. Well, at least for late 2025...
 
 How to Build and Run
 --------------------
