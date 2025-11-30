@@ -63,7 +63,7 @@ impl prettify_plugin::GuestPersonResource for Person {
         Self { first_name, last_name }
     }
 
-    fn inner(&self) -> (String, String) {
+    fn parts(&self) -> (String, String) {
         (self.first_name.clone(), self.last_name.clone())
     }
 }

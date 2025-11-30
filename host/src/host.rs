@@ -1,6 +1,9 @@
 use super::bindings::acme::plugins::host;
 
-use {std::collections::*, wasmtime_wasi::*};
+use {
+    std::{collections::*, mem::*},
+    wasmtime_wasi::*,
+};
 
 //
 // Host
@@ -66,12 +69,14 @@ impl host::HostMapResource for Host {
         Ok(())
     }
 
-    fn inner(
+    fn take(
         &mut self,
         map_resource: wasmtime::component::Resource<host::MapResource>,
     ) -> wasmtime::Result<Vec<(String, String)>> {
-        let map = self.resources.get(&map_resource)?;
-        Ok(map.inner.clone().into_iter().collect())
+        Ok(take(&mut self.resources.get_mut(&map_resource)?.inner)
+            .into_iter()
+            .map(|(key, value)| (key, value))
+            .collect())
     }
 
     fn length(&mut self, map_resource: wasmtime::component::Resource<host::MapResource>) -> wasmtime::Result<u64> {

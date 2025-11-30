@@ -12,13 +12,13 @@ interface host {
     log-structured: func(message: string, properties: map-resource);
 
     // WIT doesn't have a map type, but we can implement it as a resource
-    // Note the "inner()" function --
+    // Note the "take()" function --
     // It is my personal practice to provide such a function (when it makes sense)
-    // that can get all the resource's internal data atomically (at once) in a single call
+    // that can move out all the resource's internal data at once
 
     resource map-resource {
         constructor(key-value-pairs: list<tuple<string, string>>);
-        inner: func() -> list<tuple<string, string>>;
+        take: func() -> list<tuple<string, string>>;
         length: func() -> u64;
     }
 }
@@ -34,7 +34,7 @@ interface prettify-plugin {
 
     resource person-resource {
         constructor(first-name: string, last-name: string);
-        inner: func() -> tuple<string, string>;
+        parts: func() -> tuple<string, string>;
     }
 }
 

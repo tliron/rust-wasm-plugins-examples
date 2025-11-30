@@ -18,5 +18,5 @@ keywords = ["wasm", "wasi", "wit", "wasmtime", "examples"]
 
 [dependencies]
 anyhow = "1.0.100"
-wasmtime = "39.0.0"
-wasmtime-wasi = "39.0.0"
+wasmtime = "39.0.1"
+wasmtime-wasi = "39.0.1"
