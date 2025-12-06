@@ -12,6 +12,7 @@ interface host {
     log-structured: func(message: string, properties: map-resource);
 
     // WIT doesn't have a map type, but we can implement it as a resource
+
     // Note the "take()" function --
     // It is my personal practice to provide such a function (when it makes sense)
     // that can move out all the resource's internal data at once
@@ -32,9 +33,16 @@ interface prettify-plugin {
 
     // This resource isn't very interesting; it's just an example
 
+    // Note that exported resources do not use "&mut self",
+    // so we cannot trivially implement a "take()" function
+    // (we'd have to use Cell, RefCell or similar)
+
+    // What we can do easily is clone the resource's internal data
+    // My practice is to call this function "replica()"
+
     resource person-resource {
         constructor(first-name: string, last-name: string);
-        parts: func() -> tuple<string, string>;
+        replica: func() -> tuple<string, string>;
     }
 }
 
