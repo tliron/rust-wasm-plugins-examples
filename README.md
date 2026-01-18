@@ -64,7 +64,7 @@ Things to See
 License
 -------
 
-Like much of the Rust ecosystem, licensed under your choice of either of
+Like much of the Rust ecosystem this project is licensed under your choice of either
 
 * [Apache License, Version 2.0](LICENSE-APACHE)
 * [MIT license](LICENSE-MIT)

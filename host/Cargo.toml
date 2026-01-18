@@ -4,7 +4,7 @@ edition = "2021"
 name = "host"
 description = "Rust Wasm Plugins Example"
 version = "0.0.1"
-rust-version = "1.91"
+rust-version = "1.94"
 
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/tliron/rust-wasm-plugins-example"
@@ -13,10 +13,10 @@ authors = ["Tal Liron"]
 
 readme = "../README.md"
 
-categories = ["wasm"]                                      # https://crates.io/category_slugs
+categories = ["wasm"] # https://crates.io/category_slugs
 keywords = ["wasm", "wasi", "wit", "wasmtime", "examples"]
 
 [dependencies]
 anyhow = "1.0.100"
-wasmtime = "39.0.1"
-wasmtime-wasi = "39.0.1"
+wasmtime = "40.0.2"
+wasmtime-wasi = "40.0.2"
