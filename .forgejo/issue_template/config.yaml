@@ -1,0 +1,7 @@
+blank_issues_enabled: false
+
+contact_links:
+
+- name: Documentation
+  about: You might find what you need here
+  url: https://codeberg.org/tliron/rust-wasm-plugins-example/src/branch/main/README.md
