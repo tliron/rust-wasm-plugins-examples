@@ -1,0 +1,20 @@
+name: Problem
+about: Report a bug, an obstacle, or misleading documentation
+
+body:
+
+- type: textarea
+  attributes:
+    label: Report a Problem
+    placeholder: Description
+    description: |-
+      Use this form to report a bug, an obstacle, or misleading documentation.
+
+      If you are reporting a bug, thank you! Please help us by providing a way to reproduce it. It
+      can be a command line, a script, or a snippet of code. You can attach files, too.
+
+      If you are reporting multiple problems please create a separate issue for each. It will
+      help us give them the fullest attention.
+
+      And please do *not* use "AI" to generate your issue. We expect and deserve to interact with
+      humans.

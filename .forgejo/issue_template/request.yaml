@@ -1,0 +1,21 @@
+name: Request
+about: Suggest a change, propose a new feature, or ask a question
+
+body:
+
+- type: textarea
+  attributes:
+    label: Make a Request
+    placeholder: Description
+    description: |-
+      Use this form to suggest a change, propose a new feature, or ask a question.
+
+      Have you checked the
+      [documentation](https://codeberg.org/tliron/rust-wasm-plugins-example/src/branch/main/README.md)
+      first? OK, good!
+
+      If you have multiple requests please create a separate issue for each. It will help us give
+      them the fullest attention.
+
+      And please do *not* use "AI" to generate your issue. We expect and deserve to interact with
+      humans.
